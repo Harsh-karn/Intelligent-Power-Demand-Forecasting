@@ -1,5 +1,7 @@
 # Intelligent Power Demand Forecasting
 
+🔴 **Live Demo (Render):** [https://power-demand-forecasting-1clt.onrender.com](https://power-demand-forecasting-1clt.onrender.com)
+
 End-to-end forecasting prototype built for Apex Power & Utilities (APU) to predict electricity demand for every 30-minute block of the day using historical load data, integrated with localized weather and holiday data for Dhanbad, Jharkhand.
 
 ## Features
