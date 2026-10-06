@@ -40,17 +40,17 @@ function updateDashboard(forecast) {
 function updateWeatherWidget(temp, hum, cloud) {
     const widget = document.getElementById('weatherWidget');
     widget.innerHTML = `
-        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-            <span class="text-slate-500 font-medium">Avg Temperature</span>
-            <span class="text-xl font-bold text-slate-800">${temp}°C</span>
+        <div class="flex items-center justify-between pb-3 text-ink/80">
+            <span class="text-sm">Temperature</span>
+            <span>${temp}°C</span>
         </div>
-        <div class="flex items-center justify-between border-b border-slate-100 pb-3 pt-2">
-            <span class="text-slate-500 font-medium">Humidity</span>
-            <span class="text-xl font-bold text-slate-800">${hum}%</span>
+        <div class="flex items-center justify-between pb-3 pt-2 text-ink/80">
+            <span class="text-sm">Humidity</span>
+            <span>${hum}%</span>
         </div>
-        <div class="flex items-center justify-between pt-2">
-            <span class="text-slate-500 font-medium">Cloud Cover</span>
-            <span class="text-xl font-bold text-slate-800">${cloud}%</span>
+        <div class="flex items-center justify-between pt-2 text-ink/80">
+            <span class="text-sm">Cloud Cover</span>
+            <span>${cloud}%</span>
         </div>
     `;
 }
@@ -60,9 +60,11 @@ function updateHolidayWidget(forecast) {
     // In a real scenario, we'd check if any of the forecast periods land on a holiday
     const widget = document.getElementById('holidayWidget');
     widget.innerHTML = `
-        <div class="flex items-center space-x-2">
-            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-            <span>No localized holidays detected in the next 24 hours. Normal industrial operations expected.</span>
+        <div class="flex items-start gap-2">
+            <span class="text-rust text-lg leading-none">↓</span>
+            <span class="font-mono text-[11px] uppercase tracking-wider text-ink/80">
+                No localized holidays detected in the next 24 hours. Normal industrial operations expected.
+            </span>
         </div>
     `;
 }
@@ -74,28 +76,28 @@ function renderChart(labels, data) {
         forecastChartInstance.destroy();
     }
 
-    // Create gradient
+    // Create subtle gradient (rust)
     const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-    gradient.addColorStop(0, 'rgba(79, 70, 229, 0.4)'); // Indigo-600
-    gradient.addColorStop(1, 'rgba(79, 70, 229, 0.0)');
+    gradient.addColorStop(0, 'rgba(217, 119, 87, 0.15)'); // Rust #d97757
+    gradient.addColorStop(1, 'rgba(217, 119, 87, 0.0)');
 
     forecastChartInstance = new Chart(ctx, {
         type: 'line',
         data: {
             labels: labels,
             datasets: [{
-                label: 'Predicted Demand (MW)',
+                label: 'DEMAND (MW)',
                 data: data,
-                borderColor: '#4f46e5',
+                borderColor: '#111110', // Ink black
                 backgroundColor: gradient,
-                borderWidth: 3,
-                pointBackgroundColor: '#ffffff',
-                pointBorderColor: '#4f46e5',
-                pointBorderWidth: 2,
-                pointRadius: 4,
-                pointHoverRadius: 6,
+                borderWidth: 2,
+                pointBackgroundColor: '#d97757', // Rust dot
+                pointBorderColor: '#111110',
+                pointBorderWidth: 1.5,
+                pointRadius: 2,
+                pointHoverRadius: 5,
                 fill: true,
-                tension: 0.4
+                tension: 0.1 // More jagged, analytical feel
             }]
         },
         options: {
@@ -105,27 +107,34 @@ function renderChart(labels, data) {
                 legend: {
                     position: 'top',
                     labels: {
-                        font: { family: "'Inter', sans-serif", weight: '600' },
-                        color: '#334155'
+                        font: { family: "'Space Mono', monospace", size: 10, weight: 'bold' },
+                        color: '#111110'
                     }
                 },
                 tooltip: {
-                    backgroundColor: 'rgba(15, 23, 42, 0.9)',
-                    titleFont: { family: "'Inter', sans-serif", size: 13 },
-                    bodyFont: { family: "'Inter', sans-serif", size: 14 },
-                    padding: 12,
-                    cornerRadius: 8,
+                    backgroundColor: '#111110',
+                    titleFont: { family: "'Space Mono', monospace", size: 11 },
+                    bodyFont: { family: "'Space Mono', monospace", size: 12 },
+                    padding: 10,
+                    cornerRadius: 0,
                     displayColors: false,
                 }
             },
             scales: {
                 x: {
                     grid: { display: false },
-                    ticks: { maxTicksLimit: 12, font: { family: "'Inter', sans-serif" }, color: '#64748b' }
+                    ticks: { 
+                        maxTicksLimit: 12, 
+                        font: { family: "'Space Mono', monospace", size: 10 }, 
+                        color: '#111110' 
+                    }
                 },
                 y: {
-                    grid: { color: '#f1f5f9', borderDash: [5, 5] },
-                    ticks: { font: { family: "'Inter', sans-serif" }, color: '#64748b' }
+                    grid: { color: 'rgba(17, 17, 16, 0.1)', borderDash: [2, 4] },
+                    ticks: { 
+                        font: { family: "'Space Mono', monospace", size: 10 }, 
+                        color: '#111110' 
+                    }
                 }
             }
         }
