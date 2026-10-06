@@ -18,7 +18,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from IPython.display import display
 
 # Configure plot style
 sns.set_theme(style="whitegrid")
@@ -28,8 +27,8 @@ plt.rcParams['figure.figsize'] = (12, 6)
 df_load = pd.read_csv('../Utility_consumption.csv')
 
 # Display basic information and the first few rows
-display(df_load.info())
-display(df_load.head())
+print(df_load.info())
+print(df_load.head())
 """
 
 text2 = """\
@@ -62,7 +61,7 @@ code3 = """\
 df_30m = df_load.resample('30min').mean()
 
 print(f"Data shape after resampling: {df_30m.shape}")
-display(df_30m.head())
+print(df_30m.head())
 """
 
 text4 = """\

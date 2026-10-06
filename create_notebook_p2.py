@@ -16,7 +16,6 @@ code1 = """\
 import pandas as pd
 import requests
 import numpy as np
-from IPython.display import display
 
 # Load the cleaned consumption data
 df_load = pd.read_csv('../Utility_consumption_cleaned.csv', parse_dates=['Datetime'], index_col='Datetime')
@@ -63,7 +62,7 @@ end_dt = df_load.index.max()
 print("Fetching weather data...")
 df_weather = fetch_weather_data(start_dt, end_dt)
 print("Done. Weather data preview:")
-display(df_weather.head())
+print(df_weather.head())
 """
 
 text3 = """\
@@ -94,7 +93,7 @@ holidays_2017 = {
 df_holidays = pd.DataFrame(list(holidays_2017.items()), columns=['Date', 'Holiday'])
 df_holidays['Date'] = pd.to_datetime(df_holidays['Date'])
 df_holidays['Is_Holiday'] = 1
-display(df_holidays.head())
+print(df_holidays.head())
 """
 
 text4 = """\
