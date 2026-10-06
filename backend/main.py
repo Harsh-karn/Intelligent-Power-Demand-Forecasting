@@ -92,7 +92,8 @@ def get_forecast():
             "predicted_demand": round(predictions[i], 2),
             "temperature": round(row['Temperature'], 2),
             "humidity": round(row['Humidity'], 2),
-            "cloud_cover": round(row['CloudCover'], 2)
+            "cloud_cover": round(row['CloudCover'], 2),
+            "is_holiday": int(row['Is_Holiday'])
         })
         
     return {"forecast": forecast_results}

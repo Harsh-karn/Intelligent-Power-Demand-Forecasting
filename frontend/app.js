@@ -56,17 +56,28 @@ function updateWeatherWidget(temp, hum, cloud) {
 }
 
 function updateHolidayWidget(forecast) {
-    // In our mock backend, we hardcoded Is_Holiday = 0 for the future prediction
-    // In a real scenario, we'd check if any of the forecast periods land on a holiday
+    const hasHoliday = forecast.some(f => f.is_holiday === 1);
     const widget = document.getElementById('holidayWidget');
-    widget.innerHTML = `
-        <div class="flex items-start gap-2">
-            <span class="text-rust text-lg leading-none">↓</span>
-            <span class="font-mono text-[11px] uppercase tracking-wider text-ink/80">
-                No localized holidays detected in the next 24 hours. Normal industrial operations expected.
-            </span>
-        </div>
-    `;
+    
+    if (hasHoliday) {
+        widget.innerHTML = `
+            <div class="flex items-start gap-2">
+                <span class="text-rust text-lg leading-none">!</span>
+                <span class="font-mono text-[11px] uppercase tracking-wider text-ink/80">
+                    Warning: Local holiday detected in the forecast period. Model has adjusted expectations.
+                </span>
+            </div>
+        `;
+    } else {
+        widget.innerHTML = `
+            <div class="flex items-start gap-2">
+                <span class="text-rust text-lg leading-none">↓</span>
+                <span class="font-mono text-[11px] uppercase tracking-wider text-ink/80">
+                    No localized holidays detected in the next 24 hours. Normal industrial operations expected.
+                </span>
+            </div>
+        `;
+    }
 }
 
 function renderChart(labels, data) {
