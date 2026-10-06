@@ -6,6 +6,11 @@ import pandas as pd
 import numpy as np
 import joblib
 from datetime import datetime, timedelta
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MODEL_PATH = os.path.join(BASE_DIR, 'model.pkl')
+FRONTEND_PATH = os.path.join(BASE_DIR, 'frontend')
 
 app = FastAPI(title="Power Demand Forecasting API")
 
@@ -21,7 +26,7 @@ app.add_middleware(
 # Load the model
 # In production, we'd handle exceptions if the model file is missing
 try:
-    model = joblib.load('../model.pkl')
+    model = joblib.load(MODEL_PATH)
 except FileNotFoundError:
     model = None
 
@@ -93,4 +98,5 @@ def get_forecast():
     return {"forecast": forecast_results}
 
 # Mount frontend folder
-app.mount("/", StaticFiles(directory="../frontend", html=True), name="frontend")
+app.mount("/", StaticFiles(directory=FRONTEND_PATH, html=True), name="frontend")
+
