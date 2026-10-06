@@ -21,6 +21,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 import joblib
+from IPython.display import display
 
 # Load the engineered dataset
 df = pd.read_csv('../Engineered_Features.csv', parse_dates=['Datetime'], index_col='Datetime')

@@ -16,6 +16,7 @@ code1 = """\
 import pandas as pd
 import requests
 import numpy as np
+from IPython.display import display
 
 # Load the cleaned consumption data
 df_load = pd.read_csv('../Utility_consumption_cleaned.csv', parse_dates=['Datetime'], index_col='Datetime')
