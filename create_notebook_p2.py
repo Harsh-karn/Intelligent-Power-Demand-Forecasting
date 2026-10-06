@@ -96,8 +96,46 @@ df_holidays['Is_Holiday'] = 1
 print(df_holidays.head())
 """
 
+text3a = """\
+## 2.3 Visual Exploration of Weather and Holidays
+Before merging, let's visually explore the weather data and the distribution of localized holidays.
+"""
+
+code3a = """\
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+sns.set_theme(style="whitegrid")
+
+# Plot Temperature and Humidity
+fig, ax1 = plt.subplots(figsize=(15, 5))
+ax1.plot(df_weather.index, df_weather['Temperature'], color='red', alpha=0.7, label='Temperature (°C)')
+ax1.set_ylabel('Temperature (°C)', color='red')
+ax1.tick_params(axis='y', labelcolor='red')
+
+ax2 = ax1.twinx()
+ax2.plot(df_weather.index, df_weather['Humidity'], color='blue', alpha=0.5, label='Humidity (%)')
+ax2.set_ylabel('Humidity (%)', color='blue')
+ax2.tick_params(axis='y', labelcolor='blue')
+
+plt.title('Weather Trends in Dhanbad, Jharkhand')
+plt.show()
+
+# Show Holiday Distribution
+df_holidays['Month'] = df_holidays['Date'].dt.month
+holiday_counts = df_holidays['Month'].value_counts().sort_index()
+
+plt.figure(figsize=(8, 4))
+holiday_counts.plot(kind='bar', color='orange')
+plt.title('Distribution of Dhanbad Local Holidays by Month')
+plt.xlabel('Month')
+plt.ylabel('Number of Holidays')
+plt.xticks(ticks=range(12), labels=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][:len(holiday_counts)], rotation=45)
+plt.show()
+"""
+
 text4 = """\
-## 2.3 Merging and Feature Engineering
+## 2.4 Merging and Feature Engineering
 Now, let's merge the load, weather, and holiday data. We will also extract temporal features (hour, day of week, month).
 """
 
@@ -139,6 +177,8 @@ nb['cells'] = [
     nbf.v4.new_code_cell(code2),
     nbf.v4.new_markdown_cell(text3),
     nbf.v4.new_code_cell(code3),
+    nbf.v4.new_markdown_cell(text3a),
+    nbf.v4.new_code_cell(code3a),
     nbf.v4.new_markdown_cell(text4),
     nbf.v4.new_code_cell(code4)
 ]
