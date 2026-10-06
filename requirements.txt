@@ -1,0 +1,12 @@
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+requests
+jupyter
+notebook
+fastapi
+uvicorn
+python-dotenv
+requests-cache
