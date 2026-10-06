@@ -117,8 +117,10 @@ df_merged['Is_Weekend'] = df_merged['DayOfWeek'].apply(lambda x: 1 if x >= 5 els
 
 # Merge Holidays
 df_merged['Date_Only'] = df_merged.index.normalize()
+df_merged['Datetime'] = df_merged.index
 df_merged = df_merged.merge(df_holidays[['Date', 'Is_Holiday']], left_on='Date_Only', right_on='Date', how='left')
 df_merged['Is_Holiday'] = df_merged['Is_Holiday'].fillna(0).astype(int)
+df_merged.set_index('Datetime', inplace=True)
 df_merged.drop(columns=['Date', 'Date_Only'], inplace=True)
 
 # Final check
